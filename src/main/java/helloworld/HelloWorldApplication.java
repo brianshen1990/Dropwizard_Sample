@@ -1,11 +1,13 @@
 package helloworld;
 
 import helloworld.health.TemplateHealthCheck;
-import helloworld.resources.HelloNestedAPIResource;
-import helloworld.resources.HelloWorldAPIResource;
+import helloworld.resources.APIHelloNestedResource;
+import helloworld.resources.APIHelloWorldResource;
+import helloworld.resources.ViewHelloWorldResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
@@ -21,22 +23,27 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
     @Override
     public void initialize(final Bootstrap<HelloWorldConfiguration> bootstrap) {
         // TODO: application initialization
+        bootstrap.addBundle(new ViewBundle<HelloWorldConfiguration>());
     }
 
     @Override
     public void run(final HelloWorldConfiguration configuration,
                     final Environment environment) {
 
-        final HelloWorldAPIResource resource= new HelloWorldAPIResource(
+        final APIHelloWorldResource apiResource= new APIHelloWorldResource(
                 configuration.getTemplate(),
                 configuration.getDefaultName()
         );
-        final HelloNestedAPIResource resourceNested= new HelloNestedAPIResource(
+        final APIHelloNestedResource apiResourceNested = new APIHelloNestedResource(
                 configuration.getTemplate(),
                 configuration.getBlock().getAnotherVar()
         );
-        environment.jersey().register(resource);
-        environment.jersey().register(resourceNested);
+        final ViewHelloWorldResource resourceViewHelloWorld =
+                new ViewHelloWorldResource(configuration.getBlock().getAnotherVar());
+
+        environment.jersey().register(apiResource);
+        environment.jersey().register(apiResourceNested);
+        environment.jersey().register(resourceViewHelloWorld);
 
 
         final TemplateHealthCheck healthCheck =

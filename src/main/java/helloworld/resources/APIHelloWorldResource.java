@@ -13,12 +13,12 @@ import java.util.Optional;
 
 @Path("/api/hello-world")
 @Produces(MediaType.APPLICATION_JSON)
-public class HelloWorldAPIResource {
+public class APIHelloWorldResource {
     private final String template;
     private final String defaultName;
     private final AtomicLong counter;
 
-    public HelloWorldAPIResource(String template, String defaultName) {
+    public APIHelloWorldResource(String template, String defaultName) {
         this.template = template;
         this.defaultName = defaultName;
         this.counter = new AtomicLong();

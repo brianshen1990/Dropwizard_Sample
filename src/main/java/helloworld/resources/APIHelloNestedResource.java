@@ -13,12 +13,12 @@ import java.util.concurrent.atomic.AtomicLong;
 
 @Path("/api/hello-nested")
 @Produces(MediaType.APPLICATION_JSON)
-public class HelloNestedAPIResource {
+public class APIHelloNestedResource {
     private final String template;
     private final String anotherVar;
     private final AtomicLong counter;
 
-    public HelloNestedAPIResource(String template, String anotherVar) {
+    public APIHelloNestedResource(String template, String anotherVar) {
         this.template = template;
         this.anotherVar = anotherVar;
         this.counter = new AtomicLong();

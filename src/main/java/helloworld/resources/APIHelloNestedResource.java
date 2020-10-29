@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Path("/api/hello-nested")
+@Path("/hello-nested")
 @Produces(MediaType.APPLICATION_JSON)
 public class APIHelloNestedResource {
     private final String template;

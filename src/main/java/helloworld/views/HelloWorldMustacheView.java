@@ -13,7 +13,7 @@ public class HelloWorldMustacheView extends View {
     public HelloWorldMustacheView( String varName) {
         super("helloworld.mustache");
         this.varName = varName;
-        System.out.println(this.varName + "-------");
+        // System.out.println(this.varName + "-------");
     }
 
 }

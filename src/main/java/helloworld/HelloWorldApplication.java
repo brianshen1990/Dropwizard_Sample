@@ -8,6 +8,7 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
+import io.dropwizard.assets.AssetsBundle;
 
 public class HelloWorldApplication extends Application<HelloWorldConfiguration> {
 
@@ -22,14 +23,17 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
 
     @Override
     public void initialize(final Bootstrap<HelloWorldConfiguration> bootstrap) {
-        // TODO: application initialization
+        // Enable Views
         bootstrap.addBundle(new ViewBundle<HelloWorldConfiguration>());
+        // Enable Static files
+        bootstrap.addBundle(new AssetsBundle("/assets/", "/"));
     }
 
     @Override
     public void run(final HelloWorldConfiguration configuration,
                     final Environment environment) {
 
+        // API and Views
         final APIHelloWorldResource apiResource= new APIHelloWorldResource(
                 configuration.getTemplate(),
                 configuration.getDefaultName()
@@ -45,7 +49,7 @@ public class HelloWorldApplication extends Application<HelloWorldConfiguration> 
         environment.jersey().register(apiResourceNested);
         environment.jersey().register(resourceViewHelloWorld);
 
-
+        // Health check
         final TemplateHealthCheck healthCheck =
                 new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);

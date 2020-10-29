@@ -5,6 +5,9 @@ import io.dropwizard.Configuration;
 
 import javax.validation.constraints.NotEmpty;
 
+/**
+ * For configurations sections
+ */
 public class BlockNestedConfiguration extends Configuration  {
     @NotEmpty
     private String anotherVar;

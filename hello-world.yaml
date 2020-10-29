@@ -1,5 +1,0 @@
-template: Hello, %s!
-defaultName: Stranger
-
-block:
-  anotherVar: Hello Nested
